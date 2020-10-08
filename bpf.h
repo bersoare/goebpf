@@ -106,6 +106,27 @@ union bpf_attr {
         __u32       attach_type;
         __u32       attach_flags;
     };
+    // https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/bpf.h#L431
+    struct { /* anonymous struct used by BPF_PROG_TEST_RUN command */
+		__u32		prog_fd;
+		__u32		retval;
+		__u32		data_size_in;	/* input: len of data_in */
+		__u32		data_size_out;	/* input/output: len of data_out
+						 *   returns ENOSPC if data_out
+						 *   is too small.
+						 */
+		__aligned_u64	data_in;
+		__aligned_u64	data_out;
+		__u32		repeat;
+		__u32		duration;
+		__u32		ctx_size_in;	/* input: len of ctx_in */
+		__u32		ctx_size_out;	/* input/output: len of ctx_out
+						 *   returns ENOSPC if ctx_out
+						 *   is too small.
+						 */
+		__aligned_u64	ctx_in;
+		__aligned_u64	ctx_out;
+	} test;
 
     struct { /* anonymous struct used by BPF_*_GET_*_ID */
         union {
